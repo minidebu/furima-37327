@@ -21,7 +21,7 @@ class User < ApplicationRecord
     validates :last_name
   end
 
-  with_options presence: true, format: { with: /\A[ァ-ヶー]+\z/, message: '全角カナを入力してください' }, allow_blank: true do
+  with_options format: { with: /\A[ァ-ヶー]+\z/, message: '全角カナを入力してください' }, allow_blank: true do
     validates :kana_fname
     validates :kana_lname
   end
