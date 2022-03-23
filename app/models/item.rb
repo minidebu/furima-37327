@@ -17,6 +17,7 @@ class Item < ApplicationRecord
     validates :shipping_days_id
   end
 
+  validates :image ,presence: true
   validates :name ,presence: true ,length: { maximum: 40 }
   validates :info ,presence: true,length: { maximum: 1000 }
   validates :price ,presence: true
