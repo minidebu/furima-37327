@@ -1,6 +1,6 @@
-class BuyersBuyRecord
+class BuyerBuyRecord
   include ActiveModel::Model
-  atter_accessor :post_code ,:prefecture_id ,:municipality,:address,:building,:phone,:buy_record_id,:user_id,:item_id
+  atter_accessor :post_code ,:prefecture_id ,:municipality,:address,:building,:phone,:user_id,:item_id
 
 
   with_options presence: true do
@@ -9,13 +9,16 @@ class BuyersBuyRecord
     validates :municipality
     validates :address
     validates :phone ,numericality: {only_integer: true}, length: { in: 10..11 },allow_blank: true
-    validates :buy_record_id
     validates :user_id
     validates :item_id
   end
 
+  def save
+    buyer = Buyer.create(post_code:post_code,prefecture_id:prefecture_id,municipality:municipality,address:address,building:building,phone:phone,buy_record_id:buy_record.id)
+    BuyRecord.create(user_id:user_id,item_id:item_id)
+  end
 
-  private
+
 
 
 end
