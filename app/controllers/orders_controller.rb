@@ -10,7 +10,6 @@ class OrdersController < ApplicationController
       @buyer_buy_record.save
       redirect_to root_path
     else
-      @buyer_buy_record = BuyerBuyRecord.new(buy_params)
       render :index
     end
 
