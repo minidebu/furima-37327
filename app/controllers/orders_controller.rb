@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def index
     @buyer_buy_record = BuyerBuyRecord.new(item_id:params[:item_id])
+    @item = Item.find(params[:item_id])
   end
 
   def create
@@ -10,6 +11,7 @@ class OrdersController < ApplicationController
       @buyer_buy_record.save
       redirect_to root_path
     else
+      @item = Item.find(params[:item_id])
       render :index
     end
 
