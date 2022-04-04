@@ -1,3 +1,5 @@
 class BuyRecord < ApplicationRecord
-  belongs_to :buy_record
+  belongs_to :user
+  belongs_to :item  
+  has_one :buyer
 end
