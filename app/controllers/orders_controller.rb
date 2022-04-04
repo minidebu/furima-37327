@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
       @buyer_buy_record.save
       redirect_to root_path
     else
+      @buyer_buy_record = BuyerBuyRecord.new(buy_params)
       render :index
     end
 
@@ -17,7 +18,6 @@ class OrdersController < ApplicationController
   
   private
   def buy_params
-    params(:BuyerBuyRecord).permit(:post_code ,:prefecture_id ,:municipality,:address,:building,:phone).merge(user_id:current_user.id,item_id:params[:item_id])
-
+    params.require(:buyer_buy_record).permit(:post_code ,:prefecture_id ,:municipality,:address,:building,:phone).merge(user_id:current_user.id,item_id:params[:item_id])
   end
 end

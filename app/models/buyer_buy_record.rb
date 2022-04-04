@@ -14,8 +14,9 @@ class BuyerBuyRecord
   end
 
   def save
-    buyer = Buyer.create(post_code:post_code,prefecture_id:prefecture_id,municipality:municipality,address:address,building:building,phone:phone,buy_record_id:buy_record.id)
-    BuyRecord.create(user_id:user_id,item_id:item_id)
+ 
+    buy_record = BuyRecord.create(user_id:user_id,item_id:item_id)
+    Buyer.create(post_code:post_code,prefecture_id:prefecture_id,municipality:municipality,address:address,building:building,phone:phone,buy_record_id:buy_record.id)
   end
 
 
