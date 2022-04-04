@@ -1,6 +1,6 @@
 class BuyerBuyRecord
   include ActiveModel::Model
-  atter_accessor :post_code ,:prefecture_id ,:municipality,:address,:building,:phone,:user_id,:item_id
+  attr_accessor :post_code ,:prefecture_id ,:municipality,:address,:building,:phone,:user_id,:item_id
 
 
   with_options presence: true do

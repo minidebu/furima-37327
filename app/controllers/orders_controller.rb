@@ -1,9 +1,10 @@
 class OrdersController < ApplicationController
   def index
-    @buyer_buy_record = BuyerBuyRecord.new
+    @buyer_buy_record = BuyerBuyRecord.new(item_id:params[:item_id])
   end
 
   def create
+
     @buyer_buy_record = BuyerBuyRecord.new(buy_params)
     if @buyer_buy_record.valid?
       @buyer_buy_record.save
