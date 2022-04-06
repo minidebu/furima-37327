@@ -6,5 +6,6 @@ FactoryBot.define do
     address         {"1-1"}
     building        {"建物"}
     phone           {rand(1000000000..99999999999)}
+    token           {"token7491u9874928392"}
   end
 end

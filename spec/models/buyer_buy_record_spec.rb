@@ -4,7 +4,7 @@ RSpec.describe BuyerBuyRecord, type: :model do
     user = FactoryBot.create(:user)
     item = FactoryBot.create(:item)
     @buyer_buy_record = FactoryBot.build(:buyer_buy_record,user_id:user.id,item_id:item.id)
-
+    sleep 0.1
   end
   describe '商品購入機能' do
     context '商品が購入できる時' do
@@ -72,6 +72,11 @@ RSpec.describe BuyerBuyRecord, type: :model do
         @buyer_buy_record.user_id = nil
         @buyer_buy_record.valid?
         expect(@buyer_buy_record.errors.full_messages).to include("User can't be blank")
+      end   
+      it 'tokenがない時、商品が購入できない' do
+        @buyer_buy_record.token = nil
+        @buyer_buy_record.valid?
+        expect(@buyer_buy_record.errors.full_messages).to include("Token can't be blank")
       end   
     end 
   end
