@@ -49,6 +49,7 @@ class ItemsController < ApplicationController
   def move_to_index
     item = Item.find(params[:id])
     redirect_to root_path unless item.user_id == current_user.id
+    redirect_to root_path if BuyRecord.exists?(item_id: item.id) 
   end
 
   def set_item
