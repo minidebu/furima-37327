@@ -17,12 +17,12 @@ RSpec.describe BuyerBuyRecord, type: :model do
       end
     end
     context '商品が購入できない時' do
-      it '郵便番号の入が力ない時、商品が購入できない' do
+      it '郵便番号の入力がない時、商品が購入できない' do
         @buyer_buy_record.post_code = ''
         @buyer_buy_record.valid?
         expect(@buyer_buy_record.errors.full_messages).to include("Post code can't be blank")
       end
-      it '都道府県の入が力ない時、商品が購入できない' do
+      it '都道府県の入力がない時、商品が購入できない' do
         @buyer_buy_record.prefecture_id = 1
         @buyer_buy_record.valid?
         expect(@buyer_buy_record.errors.full_messages).to include('Prefecture must be other than 1')
@@ -52,16 +52,21 @@ RSpec.describe BuyerBuyRecord, type: :model do
         @buyer_buy_record.valid?
         expect(@buyer_buy_record.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
-      it '電話番号が10~11桁でなかった時、商品が購入できない' do
+      it '電話番号が10桁より少なかった時、商品が購入できない' do
         @buyer_buy_record.phone = '125'
         @buyer_buy_record.valid?
         expect(@buyer_buy_record.errors.full_messages).to include('Phone is too short (minimum is 10 characters)')
       end
+      it '電話番号が11桁より多かった時、商品が購入できない' do
+        @buyer_buy_record.phone = '123456789101'
+        @buyer_buy_record.valid?
+        expect(@buyer_buy_record.errors.full_messages).to include('Phone is too long (maximum is 11 characters)')
+      end
 
       it '電話番号に半角数値以外がある時、商品が購入できない' do
-        @buyer_buy_record.phone = 'aiueokaki'
+        @buyer_buy_record.phone = '123456789a'
         @buyer_buy_record.valid?
-        expect(@buyer_buy_record.errors.full_messages).to include('Phone is too short (minimum is 10 characters)')
+        expect(@buyer_buy_record.errors.full_messages).to include('Phone is not a number')
       end
       it 'itemが紐付いていない時、商品が購入できない' do
         @buyer_buy_record.item_id = nil

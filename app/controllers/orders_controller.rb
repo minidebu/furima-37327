@@ -1,10 +1,11 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :move_to_index
+    before_action :authenticate_user!
+    before_action :move_to_index
+    before_action :set_item 
 
   def index
-    @buyer_buy_record = BuyerBuyRecord.new(item_id: params[:item_id])
-    @item = Item.find(params[:item_id])
+    @buyer_buy_record = BuyerBuyRecord.new
+    
   end
 
   def create
@@ -14,12 +15,14 @@ class OrdersController < ApplicationController
       @buyer_buy_record.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
 
   private
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def buy_params
     params.require(:buyer_buy_record).permit(:post_code, :prefecture_id, :municipality, :address, :building, :phone).merge(
@@ -33,10 +36,9 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    item = Item.find(params[:item_id])
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
-      amount: item.price,
+      amount: @item.price,
       card: params[:token],
       currency: 'jpy'
     )
