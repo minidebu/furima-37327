@@ -22,3 +22,4 @@ class BuyerBuyRecord
                  phone: phone, buy_record_id: buy_record.id)
   end
 end
+  
